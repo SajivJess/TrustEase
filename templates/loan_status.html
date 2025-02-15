@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Status | TrustEase</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0F0F0F;
+            color: #E5E5E5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .status-container {
+            background: #1A1A1A;
+            border: 1px solid #2C2C2C;
+            border-radius: 12px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 4px 8px rgba(255, 215, 0, 0.2);
+            text-align: center;
+        }
+
+        h2 {
+            color: #FFD700;
+            margin-bottom: 1.5rem;
+        }
+
+        .status-message {
+            font-size: 1.1em;
+            margin-bottom: 1rem;
+            color: #E5E5E5;
+        }
+
+        .status-box {
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 10px;
+            margin: 10px auto;
+            border-radius: 6px;
+            display: inline-block;
+            text-transform: uppercase;
+        }
+
+        .pending {
+            background-color: #856404;
+            color: #FFD700;
+        }
+
+        .approved {
+            background-color: #155724;
+            color: #D4EDDA;
+        }
+
+        .rejected {
+            background-color: #721C24;
+            color: #F8D7DA;
+        }
+
+        .status-detail {
+            margin-top: 1rem;
+            font-size: 0.95em;
+            color: #CCCCCC;
+        }
+
+        .back-home {
+            margin-top: 2rem;
+        }
+
+        .back-home a {
+            text-decoration: none;
+            color: #FFD700;
+            font-weight: bold;
+        }
+
+        .back-home a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="status-container">
+        <h2>Loan Application Status</h2>
+        
+        <p class="status-message">Your current loan application status is:</p>
+        <div class="status-box 
+            {% if loan['status'] == 'Pending' %}pending{% elif loan['status'] == 'Accepted' %}approved{% elif loan['status'] == 'Rejected' %}rejected{% endif %}">
+            {{ loan['status'] }}
+        </div>
+        
+        {% if loan['status'] == 'Pending' %}
+            <p class="status-detail">⏳ Your application is under review. Please check back later.</p>
+        {% elif loan['status'] == 'Accepted' %}
+            <p class="status-detail">🎉 Congratulations! Your loan application has been **Approved**.</p>
+        {% elif loan['status'] == 'Rejected' %}
+            <p class="status-detail">❌ We're sorry, but your loan application has been **Rejected**.</p>
+        {% endif %}
+        
+        <div class="back-home">
+            <a href="{{ url_for('dashboard') }}">&#8592; Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

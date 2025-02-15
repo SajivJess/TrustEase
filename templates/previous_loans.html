@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Previous Loan Applications | TrustEase</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0F0F0F;
+            color: #E5E5E5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: #1A1A1A;
+            border: 1px solid #2C2C2C;
+            border-radius: 12px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 4px 8px rgba(255, 215, 0, 0.2);
+        }
+
+        h1 {
+            color: #FFD700;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .loan-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .loan-table th, .loan-table td {
+            border: 1px solid #2C2C2C;
+            padding: 0.75rem;
+            text-align: center;
+        }
+
+        .loan-table th {
+            background-color: #FFD700;
+            color: #0F0F0F;
+            font-weight: 600;
+        }
+
+        .loan-table tbody tr:nth-child(even) {
+            background-color: #1E1E1E;
+        }
+
+        .loan-table tbody tr:hover {
+            background-color: #2C2C2C;
+        }
+
+        .status-approved {
+            color: #32CD32;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            color: #FFA500;
+            font-weight: 600;
+        }
+
+        .status-rejected {
+            color: #FF4D4D;
+            font-weight: 600;
+        }
+
+        .no-data {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            color: #8C8C8C;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 2rem;
+            text-align: center;
+            text-decoration: none;
+            background-color: #FFD700;
+            color: #0F0F0F;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #E6C200;
+        }
+
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #8C8C8C;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Previous Loan Applications</h1>
+        
+        {% if loans %}
+        <table class="loan-table">
+            <thead>
+                <tr>
+                    <th>Loan ID</th>
+                    <th>Application Date</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for loan in loans %}
+                <tr>
+                    <td>#{{ loan.id }}</td>
+                    <td>{{ loan.application_date }}</td>
+                    <td>{{ loan.amount | inr }}</td>
+                    <td class="
+                        {% if loan.status == 'Approved' %}status-approved
+                        {% elif loan.status == 'Pending' %}status-pending
+                        {% elif loan.status == 'Rejected' %}status-rejected
+                        {% endif %}">
+                        {{ loan.status }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="no-data">No previous loan applications found.</p>
+        {% endif %}
+        
+        <a href="{{ url_for('dashboard') }}" class="back-button">&#8592; Back to Dashboard</a>
+    </div>
+    <footer>
+        &copy; 2024 TrustEase. All Rights Reserved.
+    </footer>
+</body>
+</html>

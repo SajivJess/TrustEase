@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Application | TrustEase</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0F0F0F;
+            color: #E5E5E5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .form-container {
+            background: #1A1A1A;
+            border: 1px solid #2C2C2C;
+            border-radius: 12px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 4px 8px rgba(255, 215, 0, 0.2);
+            text-align: center;
+        }
+
+        h2 {
+            color: #FFD700;
+            margin-bottom: 1.5rem;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        label {
+            text-align: left;
+            font-weight: 600;
+            color: #E5E5E5;
+            margin-bottom: 0.3rem;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid #444;
+            border-radius: 6px;
+            background-color: #2C2C2C;
+            color: #E5E5E5;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #FFD700;
+        }
+
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #FFD700;
+            color: #0F0F0F;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #E6C200;
+        }
+
+        .back-home {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .back-home a {
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-home a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Loan Application Form</h2>
+        <form method="POST" action="{{ url_for('loan_application') }}">
+            <!-- Loan Amount -->
+            <label for="loan_amount">Loan Amount:</label>
+            <input type="number" id="loan_amount" name="loan_amount" min="1000" step="100" required>
+            
+            <!-- Loan Duration -->
+            <label for="loan_duration">Loan Duration (in months):</label>
+            <input type="number" id="loan_duration" name="loan_duration" min="1" required>
+            
+            <!-- Loan Purpose -->
+            <label for="loan_purpose">Loan Purpose:</label>
+            <input type="text" id="loan_purpose" name="loan_purpose" placeholder="E.g., Home Renovation, Education" required>
+            
+            <!-- Employment Type -->
+            <label for="employment_type">Employment Type:</label>
+            <select id="employment_type" name="employment_type" required>
+                <option value="" disabled selected>Select Employment Type</option>
+                <option value="Salaried">Salaried</option>
+                <option value="Self-Employed">Self-Employed</option>
+                <option value="Business">Business</option>
+                <option value="Freelancer">Freelancer</option>
+            </select>
+            
+            <!-- Annual Income -->
+            <label for="annual_income">Annual Income:</label>
+            <input type="number" id="annual_income" name="annual_income" min="10000" required>
+            
+            <!-- Credit Score -->
+            <label for="credit_score">Credit Score:</label>
+            <input type="number" id="credit_score" name="credit_score" min="300" max="900" required>
+            
+            <!-- Submit Button -->
+            <button type="submit">Submit Application</button>
+        </form>
+        
+        <div class="back-home">
+            <a href="{{ url_for('dashboard') }}">&#8592; Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

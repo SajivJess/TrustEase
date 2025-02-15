@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | TrustEase</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0F0F0F;
+            color: #E5E5E5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        /* Login Container */
+        .login-container {
+            background: #1A1A1A;
+            border: 1px solid #2C2C2C;
+            border-radius: 12px;
+            padding: 2rem 3rem;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 8px rgba(255, 215, 0, 0.2);
+        }
+
+        .login-container h1 {
+            text-align: center;
+            color: #FFD700;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Flash Messages */
+        .flash-message {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .flash-message p {
+            font-size: 0.9rem;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+
+        .flash-message p.error {
+            color: #FF4D4D;
+        }
+
+        .flash-message p.success {
+            color: #32CD32;
+        }
+
+        /* Form Styling */
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #B3B3B3;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #2C2C2C;
+            background-color: #0F0F0F;
+            color: #E5E5E5;
+            border-radius: 6px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #FFD700;
+        }
+
+        /* Submit Button */
+        button {
+            width: 100%;
+            margin-top: 1rem;
+            padding: 0.75rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #0F0F0F;
+            background-color: #FFD700;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #E6C200;
+        }
+
+        /* Additional Links */
+        .links {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .links a {
+            color: #FFD700;
+            text-decoration: none;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #8C8C8C;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Section -->
+    <div class="login-container">
+        <h1>Login</h1>
+        
+        <!-- Flash Messages -->
+        <div class="flash-message">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <p class="{{ 'error' if category == 'error' else 'success' }}">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </div>
+
+        <!-- Login Form -->
+        <form action="{{ url_for('login') }}" method="POST">
+            <!-- User Type Selection -->
+            <div class="form-group">
+                <label for="user_type">User Type</label>
+                <select name="user_type" id="user_type" required>
+                    <option value="User">User</option>
+                    <option value="Admin">Admin</option>
+                </select>
+            </div>
+
+            <!-- Login Credential -->
+            <div class="form-group">
+                <label for="login_credential">Email or Phone Number</label>
+                <input type="text" id="login_credential" name="login_credential" placeholder="Enter email or phone number" required>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit">Login</button>
+        </form>
+
+        <!-- Links -->
+        <div class="links">
+            <p>New user? <a href="{{ url_for('register') }}">Register here</a></p>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2024 TrustEase. All Rights Reserved.
+    </footer>
+</body>
+</html>
